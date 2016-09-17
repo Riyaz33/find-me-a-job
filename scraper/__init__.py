@@ -102,6 +102,7 @@ def main():
             print(e)
             continue
 
+    client.close()
     return response
 
 

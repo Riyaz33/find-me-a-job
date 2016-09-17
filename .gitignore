@@ -91,3 +91,6 @@ ENV/
 
 # Sass cache
 .sass-cache
+
+# Uploads
+/static/uploads/*
