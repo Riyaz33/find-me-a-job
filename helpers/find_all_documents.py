@@ -6,7 +6,6 @@ def find_all_documents():
     with MongoClient('mongodb://localhost:27017') as client:
         db = client.fmajil
         cursor = db.stacks.find()
-
     return list(cursor)
 
 

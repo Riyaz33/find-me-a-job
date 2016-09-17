@@ -1,9 +1,10 @@
 import json
 import os
-from pprint import pprint
+from collections import OrderedDict
 
 import requests
 from bs4 import BeautifulSoup
+from bson import SON
 from pymongo import MongoClient
 
 from endpoints import endpoints
@@ -43,7 +44,7 @@ def parse_stack_contents(soup):
     except Exception, e:
         pass
 
-    parsed_stack = {}
+    parsed_stack = dict()
 
     try:
         for layer in stack.find_all('div', {'class': 'stack-layer'}):
@@ -56,10 +57,10 @@ def parse_stack_contents(soup):
             parsed_stack[clss] = []
 
             for service in stack.find(class_=clss).find_all('div', {'id': 'stp-services'}):
-                parsed_stack[clss].append({
-                    'name': service.find('a', {'class': 'stack-service-name-under'}).text.strip(),
-                    'type': service.find('a', {'class': 'function-name-under'}).text.strip()
-                })
+                parsed_stack[clss].append(dict([
+                    ('name', service.find('a', {'class': 'stack-service-name-under'}).text.strip()),
+                    ('type', service.find('a', {'class': 'function-name-under'}).text.strip())
+                ]))
     except Exception, e:
         pass
 
@@ -67,27 +68,29 @@ def parse_stack_contents(soup):
 
     try:
         for col in jobs.find(class_='row').find_all(class_='col-md-6'):
-            parsed_jobs.append({
-                'title': col.find('div').text.strip().split('\n')[0],
-                'description': col.find(class_='function-name-under').text.strip(),
-                'link': col['onclick']
-            })
+            parsed_jobs.append(dict([
+                ('title', col.find('div').text.strip().split('\n')[0]),
+                ('description', col.find(class_='function-name-under').text.strip()),
+                ('link', col['onclick'])
+            ]))
     except Exception, e:
         pass
 
-    return {
-        'name': name,
-        'description': description,
-        'tags': tags,
-        'img': img,
-        'stack': parsed_stack,
-        'available_jobs': parsed_jobs
-    }
+    return dict([
+        ('name', name),
+        ('description', description),
+        ('tags', tags),
+        ('img', img),
+        ('stack', parsed_stack),
+        ('available_jobs', parsed_jobs)
+    ])
 
 
 def main():
-    client = MongoClient('mongodb://localhost:27017')
+    client = MongoClient('mongodb://localhost:27017', document_class=SON)
     db = client.fmajil
+
+    db.stacks.delete_many({})
 
     response = []
 
@@ -96,8 +99,8 @@ def main():
             html = fetch(BASE_URL % str(ep))
             soup = BeautifulSoup(html.text, 'html.parser')
             contents = parse_stack_contents(soup)
-            db.stacks.insert_one(contents)
             response.append(contents)
+            db.stacks.insert_one(contents.copy())
         except Exception, e:
             print(e)
             continue
@@ -107,5 +110,7 @@ def main():
 
 
 if __name__ == '__main__':
+    from pprint import pprint
+
     res = main()
-    print(json.dumps(res))
+    pprint(json.dumps(res))
