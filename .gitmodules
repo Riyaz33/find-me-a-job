@@ -1,6 +1,0 @@
-[submodule "scraper"]
-	path = scraper
-	url = ./scraper/
-[submodule "web"]
-	path = web
-	url = ./web/
