@@ -45,7 +45,8 @@ input[type=submit] {
   background-color: transparent;
   border: 0;
   color: #3498DB;
-  cursor: pointer; }
+  cursor: pointer;
+  font-family: inherit; }
 
 .navbar {
   height: 40px;

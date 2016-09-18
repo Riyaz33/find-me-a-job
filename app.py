@@ -37,10 +37,11 @@ def upload_file():
         if file and allowed_file(file.filename):
             fn, ext = secure_filename(file.filename).rsplit('.', 1)
 
-            filename = '%s - %s.%s' % (fn, id_generator(), ext)
+            filename = '%s.%s' % (id_generator(8), ext)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
-            return redirect(url_for('show_results', fp=filepath))
+            print(filepath.rsplit('/', 1))
+            return redirect(url_for('show_results', f=filepath.rsplit('/', 1)[1]))
 
         return redirect(url_for('upload_file'))
     else:
@@ -49,8 +50,11 @@ def upload_file():
 
 @app.route('/results')
 def show_results():
-    fp = request.args.get('fp')
+    fp = 'static/uploads/%s' % request.args.get('f')
     res = analyze_results(fp)
+
+    if not res:
+        abort(400)
 
     cleansed_docs = dict()
 
@@ -68,7 +72,8 @@ def show_results():
 @app.errorhandler(404)
 def bad_request(error):
     response = jsonify(meta=dict(status=error.code, message=error.description))
-    return response, error.code
+    # return response, error.code
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     import os

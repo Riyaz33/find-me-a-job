@@ -1,3 +1,4 @@
+import os
 import re
 
 from aggregate_resource_list import aggregate_resource_list
@@ -18,12 +19,18 @@ def organize_resources_by_company():
         for skill_type in company['stack']:
             for skill in company['stack'][skill_type]:
                 if skill['name'] in skills:
-                    skills[skill['name']].add(str(company['name']))
+                    try:
+                        skills[skill['name']].add(str(company['name']))
+                    except Exception, e:
+                        continue
 
     return skills
 
 
 def analyze_results(fp):
+    if not os.path.isfile(fp):
+        return None
+
     resume_txt = convert_pdf_to_txt(fp).lower()
     resources = organize_resources_by_company()
 
@@ -41,6 +48,7 @@ def analyze_results(fp):
                 user_companies[company]['count'] += 1
                 user_companies[company]['matches'].append(res)
 
+    os.remove(fp)
     return user_companies
 
 
