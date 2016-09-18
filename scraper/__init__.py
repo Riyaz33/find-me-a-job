@@ -22,10 +22,14 @@ def parse_stack_contents(soup):
         soup.find(class_='full-stack-container'), \
         soup.find(id='stack-jobs')
 
+    name = None
+
     try:
         name = header.find('span', {'itemprop': 'name'}).text.strip()
     except Exception, e:
         pass
+
+    tags = []
 
     try:
         tags = \
@@ -33,6 +37,8 @@ def parse_stack_contents(soup):
              for c in header.find_all('a', {'itemprop': 'applicationSubCategory'})]
     except Exception, e:
         pass
+
+    img = None
 
     try:
         img = header.find('img', {'itemprop': 'image'})['src']
@@ -94,16 +100,23 @@ def main():
 
     response = []
 
+    i = 1
+
     for ep in endpoints:
+        print('Scraping', i)
         try:
             html = fetch(BASE_URL % str(ep))
             soup = BeautifulSoup(html.text, 'html.parser')
             contents = parse_stack_contents(soup)
             response.append(contents)
             db.stacks.insert_one(contents.copy())
+            print('Scraped', i)
         except Exception, e:
+            print('Failed', i)
             print(e)
             continue
+
+        i += 1
 
     client.close()
     return response
