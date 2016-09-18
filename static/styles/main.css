@@ -1,100 +1,93 @@
 * {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+  -webkit-transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -ms-transition: 0.2s ease all;
+  -o-transition: 0.2s ease all;
+  transition: 0.2s ease all; }
+
+* {
+  font-family: 'Dosis'; }
 
 a {
-  text-decoration: none;
-  color: inherit; }
+  color: inherit;
+  text-decoration: none; }
 
-.btn {
-  display: inline-block;
-  padding: 6px 12px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  color: #333;
-  white-space: nowrap;
-  vertical-align: middle;
+.hero {
+  width: 100vw;
+  height: 90vh;
+  margin: 100px 0;
+  margin-bottom: 0;
+  text-align: center; }
+  .hero .heading {
+    font-weight: 400;
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 40px; }
+
+form input {
+  visibility: hidden; }
+
+.upload {
+  font-size: 25px;
+  background-color: #3498DB;
+  color: #fff;
+  padding: 20px 30px;
+  margin-top: 40px;
+  border: solid 1px #20538D;
+  border-radius: 4px;
   cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: #eee;
-  background-image: -webkit-linear-gradient(#fcfcfc, #eee);
-  background-image: linear-gradient(#fcfcfc, #eee);
-  border: 1px solid #d5d5d5;
-  border-radius: 3px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  outline: none; }
-  .btn:hover {
-    text-decoration: none;
-    background-color: #ddd;
-    background-image: -webkit-linear-gradient(#eee, #ddd);
-    background-image: linear-gradient(#eee, #ddd);
-    border-color: #ccc; }
-  .btn:active {
-    background-color: #dcdcdc;
-    background-image: none;
-    border-color: #b5b5b5;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15); }
+  font-family: inherit; }
 
-.float-left {
-  float: left !important; }
+input[type=submit] {
+  margin: 0 auto;
+  display: block;
+  margin-top: 10px;
+  background-color: transparent;
+  border: 0;
+  color: #3498DB;
+  cursor: pointer; }
 
-.float-right {
-  float: right !important; }
-
-body {
-  font-size: 14px;
-  line-height: 1.5;
-  color: #333;
-  background-color: #fff; }
-
-.header {
+.navbar {
+  height: 40px;
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: #f5f5f5;
   border-bottom: 1px solid #e5e5e5; }
-  .header .container {
-    width: 90vw;
-    margin-right: auto;
-    margin-left: auto; }
-  .header .logo {
+  .navbar div {
+    margin-top: 12px;
+    margin-left: 20px; }
+
+.results-container {
+  padding: 10px; }
+  .results-container .tile {
+    padding: 5px;
+    margin: 20px; }
+    .results-container .tile .left,
+    .results-container .tile .right {
+      display: inline-block; }
+    .results-container .tile .left {
+      width: 20vw;
+      text-align: center; }
+      .results-container .tile .left .name {
+        font-weight: 700;
+        margin-bottom: 15px; }
+    .results-container .tile .right {
+      width: 70vw;
+      line-height: 2;
+      vertical-align: top; }
+      .results-container .tile .right .description {
+        font-weight: 500; }
+      .results-container .tile .right .matches .match {
+        cursor: pointer;
+        padding: 3px 15px;
+        margin: auto 1px;
+        color: #fff;
+        background-color: #bbc;
+        border-radius: 5px;
+        font-size: 0.8em; }
+        .results-container .tile .right .matches .match:hover {
+          background-color: #aaa; }
+  .results-container div.match {
     display: inline-block; }
-
-.pagehead {
-  background-color: #fafafa;
-  position: relative;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eee; }
-  .pagehead h1 {
-    font-size: 18px;
-    line-height: 26px;
-    color: #666;
-    font-weight: 600; }
-  .pagehead h3 {
-    font-weight: 100; }
-  .pagehead .container {
-    width: 90vw;
-    margin-right: auto;
-    margin-left: auto; }
-
-.pagecontent .container {
-  width: 90vw;
-  margin-right: auto;
-  margin-left: auto; }
-.pagecontent p.github-url {
-  font-size: 40px; }
-  .pagecontent p.github-url .keyword {
-    color: #aaa; }
-.pagecontent .form input[type='text'] {
-  line-height: 20px;
-  outline: none;
-  padding: 6px 12px;
-  font-size: 14px; }
 
 /*# sourceMappingURL=main.css.map */

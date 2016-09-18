@@ -3,6 +3,7 @@ from flask import abort, Flask, jsonify, redirect, render_template, request, url
 from werkzeug.utils import secure_filename
 
 from helpers.analyze_results import analyze_results
+from helpers.find_all_documents import find_all_documents
 
 import string
 import random
@@ -28,26 +29,38 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    file = request.files['file']
+    if request.method == 'POST':
+        file = request.files['file']
 
-    if file and allowed_file(file.filename):
-        fn, ext = secure_filename(file.filename).rsplit('.', 1)
+        if file and allowed_file(file.filename):
+            fn, ext = secure_filename(file.filename).rsplit('.', 1)
 
-        filename = '%s - %s.%s' % (fn, id_generator(), ext)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-        return redirect(url_for('show_results', fp=filepath))
+            filename = '%s - %s.%s' % (fn, id_generator(), ext)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            return redirect(url_for('show_results', fp=filepath))
 
-    return redirect(url_for('index'))
+        return redirect(url_for('upload_file'))
+    else:
+        return render_template('upload.html')
 
 
 @app.route('/results')
 def show_results():
     fp = request.args.get('fp')
     res = analyze_results(fp)
-    return render_template('results.html', data=res)
+
+    cleansed_docs = dict()
+
+    all_docs = find_all_documents()
+    for doc in all_docs:
+        cleansed_docs[doc['name']] = doc
+
+    return render_template('results.html',
+                           data=res,
+                           all_docs=cleansed_docs)
 
 
 @app.errorhandler(400)

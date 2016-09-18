@@ -1,9 +1,19 @@
 {% extends "layout.html" %}
-{% block pagehead %}
-{% endblock %}
 {% block pagecontent %}
-<form action="/upload" method="post" enctype="multipart/form-data">
-  <input type="file" name="file">
-  <input type="submit">
-</form>
+<div class="hero">
+  <div class="heading">Find a <strong>Job</strong>.org</div>
+  <button class="upload">Upload a Resume</button>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="Continue">
+  </form>
+</div>
+{% endblock %}
+{% block pagescripts %}
+<script>
+  document.querySelector('.upload').addEventListener('click', function() {
+    document.querySelector('input[type=file]').click()
+    document.querySelector('input[type=submit]').style.visibility = 'visible';
+  });
+</script>
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block pagecontent %}
+<div class="navbar">
+  <div><a href="{{ url_for('index') }}">Find a <strong>Job</strong></a></div>
+</div>
+<div class="results-container">
+  {% for c in data %}
+  {% set company_data = all_docs[c] %}
+  <div class="tile" data-id="{{ company_data._id }}">
+    <div class="left">
+      <div class="name">{{ company_data.name }}</div>
+      <div class="logo"><img src="{{ company_data.img }}" alt="{{ company_data.name }}" height=80></div>
+    </div>
+    <div class="right">
+      <div class="description">{{ company_data.description }}</div>
+      <div class="matches">
+        {% for match in data[c].matches %}
+        <div class="match">{{ match }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

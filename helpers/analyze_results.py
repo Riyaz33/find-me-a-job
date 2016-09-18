@@ -4,7 +4,6 @@ from aggregate_resource_list import aggregate_resource_list
 from convert_pdf_to_txt import convert_pdf_to_txt
 from find_all_documents import find_all_documents
 
-
 DOCS = find_all_documents()
 RESOURCES = aggregate_resource_list(DOCS)
 
@@ -41,10 +40,11 @@ def analyze_results(fp):
 
                 user_companies[company]['count'] += 1
                 user_companies[company]['matches'].append(res)
+
     return user_companies
 
 
 if __name__ == '__main__':
     from pprint import pprint
-    res = analyze_results('static/uploads/resume.pdf')
+    res = analyze_results('static/uploads/my resume.pdf')
     pprint(res)
