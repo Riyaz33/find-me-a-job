@@ -103,16 +103,16 @@ def main():
     i = 1
 
     for ep in endpoints:
-        print('Scraping', i)
+        print 'Scraping', i
         try:
             html = fetch(BASE_URL % str(ep))
             soup = BeautifulSoup(html.text, 'html.parser')
             contents = parse_stack_contents(soup)
             response.append(contents)
             db.stacks.insert_one(contents.copy())
-            print('Scraped', i)
+            print 'Scraped', i
         except Exception, e:
-            print('Failed', i)
+            print 'Failed', i
             print(e)
             continue
 

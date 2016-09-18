@@ -1,6 +1,4 @@
-endppoints = [
-        ,
-        ,
+endpoints = [
     '/1000memories/1000memories',
     '/1000museums/1000museums',
     '/10mado/10mado',
