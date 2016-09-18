@@ -48,7 +48,7 @@ def analyze_results(fp):
                 user_companies[company]['count'] += 1
                 user_companies[company]['matches'].append(res)
 
-    os.remove(fp)
+    # os.remove(fp)
     return user_companies
 
 

@@ -62,7 +62,8 @@ input[type=submit] {
   padding: 10px; }
   .results-container .tile {
     padding: 5px;
-    margin: 20px; }
+    margin: 20px;
+    cursor: pointer; }
     .results-container .tile .left,
     .results-container .tile .right {
       display: inline-block; }
