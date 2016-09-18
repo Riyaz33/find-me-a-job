@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block pagecontent %}
 <div class="hero">
-  <div class="heading">Find a <strong>Job</strong>.org</div>
+  <div class="heading"><a href="{{ url_for('index') }}">Find a <strong>Job</strong>.org</a></div>
   <button class="upload">Upload a Resume</button>
   <form action="/upload" method="post" enctype="multipart/form-data">
     <input type="file" name="file">
