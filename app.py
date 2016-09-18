@@ -29,23 +29,20 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/upload', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
         file = request.files['file']
 
         if file and allowed_file(file.filename):
+            print('FILE', file)
             fn, ext = secure_filename(file.filename).rsplit('.', 1)
-
             filename = '%s.%s' % (id_generator(8), ext)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
-            print(filepath.rsplit('/', 1))
             return redirect(url_for('show_results', f=filepath.rsplit('/', 1)[1]))
 
-        return redirect(url_for('upload_file'))
-    else:
-        return render_template('upload.html')
+    return redirect(url_for('index'))
 
 
 @app.route('/results')
