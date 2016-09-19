@@ -1,17 +1,43 @@
-## find-me-a-job-i-like
+## find-me-a-job
 
-> Find a job you _want_ to work.
+> Find the perfect company _for you_.
 
-Built at the University of Waterloo during Hack the North 2016.
+Analyzes your resume and prepares a list of relevant companies based on your skillset. Company data is scraped via [StackShare](http://stackshare.io).
+
+Built in under 24 hours during Hack the North 2016 at the University of Waterloo.
+
+- [Devpost](http://devpost.com/software/find-a-tech-job)
+- [Live](http://45.79.161.187/)
 
 ### Installation
 
-_Coming soon..._
+- Prerequisites:
+  
+  + Python __2.7__ (some deps don't run on Python 3+)
+  + MongoDB
+
+- Clone repository.
+
+  ```sh
+  $ git clone https://github.com/kshvmdn/find-me-a-job.git && cd $_
+  ```
+
+- Install dependencies.
+
+  ```sh
+  $ pip install -r requirements.txt
+  ```
 
 ### Usage
 
-_Coming soon..._
+- You're going to want to populate the database before using the application (otherwise you'll have nothing to work with). You can do this by running the scraper. See [`scraper/endpoints.py`](scraper/endpoints.py) for the list of all endpoints (edit this as you will).
 
-### Contribute
+  ```sh
+  python ./scraper/__init__.py
+  ```
 
-_Coming soon..._
+- Start the application, it'll be running at the provided host/port ([`http://localhost:3000`](http://localhost:3000) by default).
+
+  ```sh
+  $ HOST=<host> PORT=<port> DEBUG=<debug> ./app.py
+  ```
