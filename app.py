@@ -35,7 +35,6 @@ def upload_file():
         file = request.files['file']
 
         if file and allowed_file(file.filename):
-            print('FILE', file)
             fn, ext = secure_filename(file.filename).rsplit('.', 1)
             filename = '%s.%s' % (id_generator(8), ext)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
